@@ -93,8 +93,6 @@ Dockerfile
 docker-compose.yml
 ```
 
-(You will place these files manually — contents are explained inside the project.)
-
 ---
 
 #  STEP 3 — Create the Flask Web App
