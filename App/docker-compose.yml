@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Persistent data
+    networks:
+      - backend
+
+  web:
+    build: .
+    container_name: web
+    restart: always
+    ports:
+      - "5000:5000"  # expose Flask app to host
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  db_data:  # This is a named volume for persistence
+
+networks:
+  backend:
+    driver: bridge
