@@ -1,5 +1,63 @@
 
 
+# Dockerized-Webapp-with-Postgres
+
+
+## 📌 Project Overview
+
+This project demonstrates how to build and run a **real multi-container application** using Docker.
+It includes a **Flask web application** that connects to a **PostgreSQL database**, both running inside isolated Docker containers.
+A **Docker Network** enables secure communication between services, and a **Docker Volume** ensures the PostgreSQL data persists even if containers are removed.
+
+This setup reflects how modern microservice-based applications are deployed in real-world environments.
+
+---
+
+##  Architecture
+
+```
+                    ┌────────────────────────┐
+                    │      User Browser      │
+                    │  http://localhost:5000 │
+                    └────────────┬───────────┘
+                                 │
+                                 ▼
+                      (Port Mapping 5000:5000)
+                    ┌────────────────────────┐
+                    │     Flask Web App      │
+                    │    Service: web        │
+                    ├────────────────────────┤
+                    │ Connects to DB via     │
+                    │ hostname: db           │
+                    └────────────┬───────────┘
+                                 │
+                         Docker Network
+                         Name: backend
+                                 │
+                                 ▼
+                    ┌────────────────────────┐
+                    │   PostgreSQL Database  │
+                    │     Service: db        │
+                    ├────────────────────────┤
+                    │ Stores persistent data │
+                    │ Volume: db_data        │
+                    └────────────┬───────────┘
+                                 │
+                           Docker Volume
+                        Persists DB data
+```
+
+###  Components
+
+| Component           | Description                                        |
+| ------------------- | -------------------------------------------------- |
+| **web (Flask App)** | Runs Python Flask server, connects to PostgreSQL   |
+| **db (PostgreSQL)** | Stores data with persistent volume                 |
+| **backend network** | Allows secure container-to-container communication |
+| **db_data volume**  | Ensures PostgreSQL data is not lost                |
+
+---
+
 #  STEP 1 — Prerequisites
 
 Ensure Docker is installed:
